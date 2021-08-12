@@ -8,18 +8,43 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "axios": "^0.21.1",
     "core-js": "^3.8.3",
-    "vue": "^3.0.4"
+    "normalize.css": "^8.0.1",
+    "vant": "^3.1.5",
+    "vue": "^3.0.4",
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/js-cookie": "^2.2.6",
+    "@types/md5": "^2.3.0",
+    "@types/node": "^14.14.41",
+    "@types/webpack-env": "^1.16.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
     "@vue/cli-plugin-babel": "~5.0.0-beta.3",
     "@vue/cli-plugin-eslint": "~5.0.0-beta.3",
+    "@vue/cli-plugin-typescript": "~5.0.0-beta.3",
     "@vue/cli-service": "~5.0.0-beta.3",
     "@vue/compiler-sfc": "^3.0.4",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-plugin-import": "^1.13.3",
     "eslint": "^7.20.0",
-    "eslint-plugin-vue": "^7.2.0"
+    "eslint-plugin-vue": "^7.2.0",
+    "husky": "^4.3.8",
+    "lib-flexible": "^0.3.2",
+    "lint-staged": "^9.5.0",
+    "node-sass": "^4.12.0",
+    "postcss-pxtorem": "^6.0.0",
+    "sass-loader": "^8.0.2",
+    "style-resources-loader": "^1.4.1",
+    "typescript": "~4.1.5"
   },
   "eslintConfig": {
     "root": true,
@@ -28,10 +53,11 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/typescript"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@typescript-eslint/parser"
     },
     "rules": {}
   },
@@ -40,5 +66,16 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,vue,ts,tsx}": [
+      "eslint --fix --max-warnings 0"
+    ]
+  }
 }
