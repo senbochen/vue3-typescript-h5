@@ -1,22 +1,22 @@
+
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import { home } from './modules/home/index'
-interface Key {
-  key: unknown
-}
+import { State } from './state'
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
 
-
-
-export const key: InjectionKey<Store<Key>> = Symbol()
+export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore({
-  modules: {
-    home: home
-  }
+  state,
+  mutations,
+  actions,
+  modules: {}
 })
 
 
-// 定义自己的 `useStore` 组合式函数
+
+// define your own `useStore` composition function
 export function useStore() {
   return baseUseStore(key)
 }
-

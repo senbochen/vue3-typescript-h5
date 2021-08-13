@@ -7,10 +7,7 @@
         :key="item.number"
         style="display: flex; justify-content: center; flex-direction: column"
       >
-        <van-image width="100" height="100" :src="item.poster" round="true" />
-        <p>第{{ item.number }}金</p>
-        <p>{{ item.subTitle }}</p>
-        <p>时间：{{ item.date }}</p>
+        <van-image width="100%" height="100%" :src="item.poster" />
       </van-swipe-item>
     </van-swipe>
     <van-button type="primary" @click="skip">跳转路由</van-button>
@@ -22,14 +19,18 @@ import { defineComponent, ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Name } from './index'
 import { getBaseInfor } from '@/api/index'
+import { useStore } from '@/store/index'
+import { MutationsEnum } from '@/store/mutation-types'
 const Home = defineComponent({
   setup() {
     const count = ref(0)
     const inforData = ref([])
+    const store = useStore()
     const house = reactive<Name>({
       name: '房子',
       age: 212
     })
+
     const router = useRouter()
     const getInfor = async () => {
       try {
@@ -55,6 +56,9 @@ const Home = defineComponent({
 
     //路由跳转
     const skip = () => {
+      store.commit(MutationsEnum.ChangeTabName, {
+        activeTabName: 'house'
+      })
       router.push({ path: '/house' })
     }
 

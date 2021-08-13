@@ -1,6 +1,9 @@
 
 <template>
   <div class="warp">
+    <van-icon class-prefix="iconfont" name="iconfont iconweixin" />
+    <van-icon class-prefix="iconfont" name="iconfont icontuite" />
+    <van-icon class-prefix="iconfont" name="iconfont iconweibo" />
     <p>{{ contryName }}</p>
     <p>{{ count }}</p>
     <van-button type="primary" @click="changeMutation" style="width: 100%"
@@ -22,16 +25,20 @@
 import { computed, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store/index'
-import { ActionEnum } from '@/store/modules/home/action-types'
-import { MutationsEnum } from '@/store/modules/home/mutation-types'
+import { ActionEnum } from '@/store/action-types'
+import { MutationsEnum } from '@/store/mutation-types'
 const House = defineComponent({
   setup () {
     const name = ref('房子')
     const router = useRouter()
     const store = useStore()
     const back = () => {
+
       router.push({
-        path: '/'
+        path: '/home'
+      })
+      store.commit(MutationsEnum.ChangeTabName, {
+        activeTabName: 'home'
       })
     }
     const change = () => {
@@ -43,14 +50,15 @@ const House = defineComponent({
     }
 
     const changeMutation = () => {
-      store.commit(MutationsEnum.NAME, { name: '今年是2021年' })
+      store.commit(MutationsEnum.NAME, { name: '这是一个伟大的时代' })
     }
     const count = computed(() => {
-      return store.state.home.count
+      return store.state.count
     })
     const contryName = computed(() => {
-      return store.state.home.name
+      return store.state.name
     })
+
     return {
       name,
       back,
@@ -65,4 +73,7 @@ const House = defineComponent({
 export default House
 </script>
 <style scoped lang='scss'>
+p {
+  font-size: 14px;
+}
 </style>
