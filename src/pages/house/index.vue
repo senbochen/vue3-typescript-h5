@@ -28,6 +28,7 @@ import { useStore } from '@/store/index'
 import { ActionEnum } from '@/store/action-types'
 import { MutationsEnum } from '@/store/mutation-types'
 const House = defineComponent({
+  name: 'House',
   setup () {
     const name = ref('房子')
     const router = useRouter()

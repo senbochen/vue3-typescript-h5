@@ -22,6 +22,7 @@ import { getBaseInfor } from '@/api/index'
 import { useStore } from '@/store/index'
 import { MutationsEnum } from '@/store/mutation-types'
 const Home = defineComponent({
+  name: 'Home',
   setup() {
     const count = ref(0)
     const inforData = ref([])

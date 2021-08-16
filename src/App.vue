@@ -1,6 +1,12 @@
 <template>
-  <div id="app">
-    <router-view :include="Array.from(cacheList)" :max="8"> </router-view>
+  <div class="common-container">
+    <!-- vue3 组件动态缓存的写法 -->
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="Array.from(cacheList)" :max="8">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+
     <van-tabbar
       v-if="route.name !== 'Login'"
       v-model="active"
@@ -49,7 +55,7 @@ export default defineComponent({
       },
       { deep: true }
     )
-    console.log(route)
+
     return { onChange, active, route, cacheList }
   }
 })

@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/friend',
     component: () => import('@/pages/friend/index.vue'),
     meta: {
-      keepAlive: false
+      keepAlive: true
     }
   },
   {
@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/set',
     component: () => import('@/pages/set/index.vue'),
     meta: {
-      keepAlive: false
+      keepAlive: true
     }
   }
 ]
