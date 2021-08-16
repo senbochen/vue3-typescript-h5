@@ -1,14 +1,7 @@
-<!--
- * @Author: your name
- * @Date: 2021-08-13 15:49:09
- * @LastEditTime: 2021-08-13 17:07:34
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /vue3-typescript-template/src/views/login/index.vue
--->
+
 <template>
   <div class="login-wrap">
-    <van-form @submit="onSubmit">
+    <van-form @submit="onSubmit" style="align-self: center">
       <van-cell-group inset>
         <van-field
           v-model="state.username"
@@ -64,4 +57,13 @@ export default Login
 
 </script>
 <style scoped lang='scss'>
+.login-wrap {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('https://d301.paixin.com/thumbs/5988232/105195316/staff_1024.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>

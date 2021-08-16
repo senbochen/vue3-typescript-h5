@@ -10,7 +10,9 @@
         <van-image width="100%" height="100%" :src="item.poster" />
       </van-swipe-item>
     </van-swipe>
-    <van-button type="primary" @click="skip">跳转路由</van-button>
+    <van-button type="primary" @click="skip" style="margin-top: 10px"
+      >跳转路由</van-button
+    >
   </div>
 </template>
 

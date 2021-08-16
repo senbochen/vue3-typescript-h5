@@ -1,11 +1,4 @@
-<!--
- * @Author: your name
- * @Date: 2021-08-13 17:57:31
- * @LastEditTime: 2021-08-13 18:06:28
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /vue3-typescript-template/src/pages/Friend/index.vue
--->
+
 <template>
   <div class="wrap">
     {{ state.username }}

@@ -6,7 +6,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     meta: {
-      keepAlive: false
+      keepAlive: false,
+      title: '登陆'
     }
   },
   {
@@ -14,7 +15,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     component: () => import('@/pages/home/index.vue'),
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      title: '首页'
     }
   },
   {
@@ -22,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/house',
     component: () => import('@/pages/house/index.vue'),
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      title: '社区'
     }
   },
   {
@@ -30,7 +33,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/friend',
     component: () => import('@/pages/friend/index.vue'),
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      title: '朋友'
     }
   },
   {
@@ -38,7 +42,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/set',
     component: () => import('@/pages/set/index.vue'),
     meta: {
-      keepAlive: true
+      keepAlive: true,
+      title: '设置'
     }
   }
 ]
