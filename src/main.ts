@@ -13,9 +13,11 @@ import { Image as VanImage } from 'vant'
 import { Form, Field, CellGroup } from 'vant'
 import { Toast } from 'vant'
 import { Tabbar, TabbarItem } from 'vant'
+import { Skeleton } from 'vant'
 import { Icon } from 'vant'
 const app = createApp(App)
 app.use(Form)
+app.use(Skeleton)
 app.use(Field)
 app.use(CellGroup)
 app.use(Icon)

@@ -1,6 +1,6 @@
 
 <template>
-  <div class="wrap">
+  <div class="common-container">
     {{ state.username }}
     {{ state.password }}
   </div>

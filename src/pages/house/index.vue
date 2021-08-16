@@ -1,6 +1,6 @@
 
 <template>
-  <div class="warp">
+  <div class="common-container">
     <van-icon class-prefix="iconfont" name="iconfont iconweixin" />
     <van-icon class-prefix="iconfont" name="iconfont icontuite" />
     <van-icon class-prefix="iconfont" name="iconfont iconweibo" />

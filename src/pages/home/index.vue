@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div class="common-container">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item
         v-for="item in inforData"
@@ -26,6 +26,7 @@ import { MutationsEnum } from '@/store/mutation-types'
 const Home = defineComponent({
   name: 'Home',
   setup() {
+    const loading = ref(true)
     const count = ref(0)
     const inforData = ref([])
     const store = useStore()
@@ -47,6 +48,7 @@ const Home = defineComponent({
           query: '中国金牌'
         })
         inforData.value = dataList
+        loading.value = false
       } catch (error) {
         console.log(error)
       }
@@ -69,7 +71,8 @@ const Home = defineComponent({
       count,
       skip,
       house,
-      inforData
+      inforData,
+      loading
     }
   }
 })
