@@ -7,7 +7,6 @@ import { store } from '@/store/index'
 import { MutationsEnum } from '@/store/mutation-types'
 import router from '@/router/index'
 
-
 axios.defaults.baseURL = 'https://api.example.com'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 const CancelToken = axios.CancelToken
