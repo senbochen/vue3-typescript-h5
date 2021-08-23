@@ -37,7 +37,7 @@ export default defineComponent({
     const route = useRoute()
     const store = useStore()
     const onChange = () => {
-      store.commit(MutationsEnum.ChangeTabName, { activeTabName: active.value })
+      store.commit(MutationsEnum.ChangeTabName, active.value)
       router.push(`/${active.value}`)
     }
     // demo

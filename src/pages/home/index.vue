@@ -1,6 +1,9 @@
 
 <template>
   <div class="common-container">
+    <span>toRefs解构取值:</span>
+    <span>{{ name }}</span>
+    <span>{{ age }}</span>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item
         v-for="item in inforData"
@@ -17,7 +20,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, reactive, onMounted } from 'vue'
+import { defineComponent, ref, reactive, onMounted, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { Name } from './index'
 import { getBaseInfor } from '@/api/index'
@@ -61,16 +64,14 @@ const Home = defineComponent({
 
     //路由跳转
     const skip = () => {
-      store.commit(MutationsEnum.ChangeTabName, {
-        activeTabName: 'house'
-      })
+      store.commit(MutationsEnum.ChangeTabName, 'house')
       router.push({ path: '/house' })
     }
 
     return {
       count,
       skip,
-      house,
+      ...toRefs(house),
       inforData,
       loading
     }
@@ -80,10 +81,16 @@ const Home = defineComponent({
 export default Home
 </script>
 <style scoped lang="scss">
+.common-container {
+  font-size: 12px;
+  span {
+    display: inline-block;
+    padding: 10px 0;
+  }
+}
 .my-swipe .van-swipe-item {
   color: #fff;
   font-size: 20px;
-
   text-align: center;
   background-color: #39a9ed;
 }

@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="screen-orientation" content="portrait">
+    <!-- Android 禁止屏幕旋转 -->
+    <meta name="full-screen" content="yes">
+     <!-- 全屏显示 -->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1339581_xsv5hc88m9.css">
@@ -18,3 +22,8 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
+<script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+ <script>
+        // 开启移动端控制台
+	var vConsole = new VConsole();
+ </script>

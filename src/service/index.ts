@@ -1,10 +1,20 @@
 
+
 import axios from 'axios'
 import { Toast } from 'vant'
 import { CODE, CODE_TEXT } from './code'
 import { store } from '@/store/index'
 import { MutationsEnum } from '@/store/mutation-types'
 import router from '@/router/index'
+
+
+axios.defaults.baseURL = 'https://api.example.com'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+const CancelToken = axios.CancelToken
+const source = CancelToken.source()
+
+
+
 axios.interceptors.request.use(function (config: any) {
   if (!config.hideloading) {
     Toast.loading({
@@ -12,8 +22,13 @@ axios.interceptors.request.use(function (config: any) {
       forbidClick: true,
       loadingType: 'spinner',
     })
-  } if (store.state.token) {
+
+  }
+
+  if (store.state.token) {
     config.headers.Authorization = `token ${store.state.token}`
+  } else {
+    config.cancelToken = source.token // 全局添加cancelToken
   }
 
   return config
@@ -32,6 +47,7 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(CODE_TEXT[index])
   }
   if (status === 400) {
+    source.cancel()
     store.commit(MutationsEnum.RemoveToken)
     const path = router.currentRoute as any
     path.path !== 'login' &&

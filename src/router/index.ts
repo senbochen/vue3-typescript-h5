@@ -1,5 +1,11 @@
 
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+
+/**
+ * 基础路由
+ * @type { *[] }
+ */
+
 const routes: Array<RouteRecordRaw> = [
   {
     name: 'Login',

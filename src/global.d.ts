@@ -1,4 +1,4 @@
 
-type ObjectType = {
+interface ObjectType {
   [key: string]: any
 }

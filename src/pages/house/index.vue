@@ -1,9 +1,15 @@
 
+
 <template>
   <div class="common-container">
     <van-icon class-prefix="iconfont" name="iconfont iconweixin" />
     <van-icon class-prefix="iconfont" name="iconfont icontuite" />
     <van-icon class-prefix="iconfont" name="iconfont iconweibo" />
+    <ul>
+      <li>12</li>
+      <li>12</li>
+      <li>12</li>
+    </ul>
     <p>{{ contryName }}</p>
     <p>{{ count }}</p>
     <van-button type="primary" @click="changeMutation" style="width: 100%"
@@ -21,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { computed, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store/index'
@@ -29,18 +35,15 @@ import { ActionEnum } from '@/store/action-types'
 import { MutationsEnum } from '@/store/mutation-types'
 const House = defineComponent({
   name: 'House',
-  setup () {
+  setup() {
     const name = ref('房子')
     const router = useRouter()
     const store = useStore()
     const back = () => {
-
       router.push({
         path: '/home'
       })
-      store.commit(MutationsEnum.ChangeTabName, {
-        activeTabName: 'home'
-      })
+      store.commit(MutationsEnum.ChangeTabName, 'home')
     }
     const change = () => {
       store.dispatch(ActionEnum.Add_Count, '这是改变的第一步')
@@ -51,7 +54,7 @@ const House = defineComponent({
     }
 
     const changeMutation = () => {
-      store.commit(MutationsEnum.NAME, { name: '这是一个伟大的时代' })
+      store.commit(MutationsEnum.NAME, '这是一个伟大的时代')
     }
     const count = computed(() => {
       return store.state.count

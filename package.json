@@ -1,6 +1,5 @@
-
 {
-  "name": "vue3-typescript-template",
+  "name": "vue3-h5-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -45,7 +44,8 @@
     "postcss-pxtorem": "^6.0.0",
     "sass-loader": "^8.0.2",
     "style-resources-loader": "^1.4.1",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "webpack-bundle-analyzer": "^3.9.0"
   },
   "eslintConfig": {
     "root": true,

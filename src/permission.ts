@@ -18,3 +18,4 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
 router.afterEach((to: RouteLocationNormalized) => {
   document.title = to.meta.title as string
 })
+
