@@ -1,10 +1,10 @@
 
 import request from 'axios'
-const base = '/api'
+const base = '/web-online-room'
 
 const getBaseInfor = (params: any) => request({
   params,
-  url: base + '/asyncfullcolumn',
+  url: base + '/openapi/room/filter/sale',
   method: 'GET',
 })
 

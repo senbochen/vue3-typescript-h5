@@ -1,13 +1,15 @@
 <template>
   <div class="app-container">
     <!-- vue3 组件动态缓存的写法 -->
-    <transition name="slide-left">
-      <router-view v-slot="{ Component }">
+
+    <router-view v-slot="{ Component }">
+      <transition name="slide-left">
         <keep-alive :include="Array.from(cacheList)" :max="8">
           <component :is="Component" />
         </keep-alive>
-      </router-view>
-    </transition>
+      </transition>
+    </router-view>
+
     <van-tabbar
       v-if="route.name !== 'Login'"
       v-model="active"

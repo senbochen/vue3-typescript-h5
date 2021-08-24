@@ -1,18 +1,14 @@
 
 <template>
   <div class="common-container">
-    <span>toRefs解构取值:</span>
-    <span>{{ name }}</span>
-    <span>{{ age }}</span>
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item
-        v-for="item in inforData"
-        :key="item.number"
-        style="display: flex; justify-content: center; flex-direction: column"
-      >
-        <van-image width="100%" height="100%" :src="item.poster" />
-      </van-swipe-item>
-    </van-swipe>
+    <van-tag
+      color="#ffe1e1"
+      text-color="#ad0000"
+      v-for="item in inforData.areaList"
+      :key="item.value"
+      >{{ item.desc }}</van-tag
+    >
+
     <van-button type="primary" @click="skip" style="margin-top: 10px"
       >跳转路由</van-button
     >
@@ -42,15 +38,9 @@ const Home = defineComponent({
     const getInfor = async () => {
       try {
         const {
-          data: {
-            data: { dataList }
-          }
-        } = await getBaseInfor({
-          srcid: 50522,
-          full_column_event: 'tokyo_olympic_2021',
-          query: '中国金牌'
-        })
-        inforData.value = dataList
+          data: { result }
+        } = await getBaseInfor({})
+        inforData.value = result
         loading.value = false
       } catch (error) {
         console.log(error)

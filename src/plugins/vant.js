@@ -1,6 +1,6 @@
 
 import { createApp } from 'vue'
-import { Button, Swipe, SwipeItem, Image as VanImage, Form, Field, CellGroup, Toast, Tabbar, TabbarItem, Skeleton, Icon } from 'vant'
+import { Button, Swipe, SwipeItem, Image as VanImage, Form, Field, CellGroup, Toast, Tabbar, TabbarItem, Skeleton, Icon, Tag } from 'vant'
 import App from '../App.vue'
 const app = createApp(App)
 
@@ -16,5 +16,5 @@ app.use(SwipeItem)
 app.use(VanImage)
 app.use(Tabbar)
 app.use(TabbarItem)
-
+app.use(Tag)
 export default app

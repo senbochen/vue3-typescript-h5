@@ -5,8 +5,8 @@ const isProd = process.env.NODE_ENV === 'production'
 
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',  //从根路径反问打包好的文件资源
-  lintOnSave: process.env.NODE_ENV === 'development',  //是否开启 eslint-loader ，校验代码格式
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',  //从根路径访问问打包好的文件资源
+  lintOnSave: process.env.NODE_ENV === 'development',  //是否开启 eslint-loader ，是否启用eslint
   outputDir: name,
   productionSourceMap: false,
   chainWebpack (config) {
@@ -31,8 +31,8 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/api': {
-        target: 'https://ugclandpage.pae.baidu.com',
+      '/web-online-room': {
+        target: 'https://sz.kfang.com',
         changeOrigin: true
       }
     }

@@ -7,7 +7,7 @@ import { store } from '@/store/index'
 import { MutationsEnum } from '@/store/mutation-types'
 import router from '@/router/index'
 
-axios.defaults.baseURL = 'https://api.example.com'
+axios.defaults.headers.get['x-source-city'] = 'SHENZHEN'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 const CancelToken = axios.CancelToken
 const source = CancelToken.source()
@@ -25,7 +25,7 @@ axios.interceptors.request.use(function (config: any) {
   }
 
   if (store.state.token) {
-    config.headers.Authorization = `token ${store.state.token}`
+    config.headers.Authorization = `token-${store.state.token}`
   } else {
     config.cancelToken = source.token // 全局添加cancelToken
   }

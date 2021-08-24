@@ -3,17 +3,17 @@ import { MutationsEnum } from './mutation-types'
 
 
 export default {
-  [MutationsEnum.ADD](state: ObjectType, count: number) {
-    state.count = count
+  [MutationsEnum.ADD](state: ObjectType, value: number) {
+    state.count = value
   },
-  [MutationsEnum.NAME](state: ObjectType, name: string) {
-    state.name = name
+  [MutationsEnum.NAME](state: ObjectType, value: string) {
+    state.name = value
   },
-  [MutationsEnum.ChangeTabName](state: ObjectType, activeTabName: string) {
-    state.activeTabName = activeTabName
+  [MutationsEnum.ChangeTabName](state: ObjectType, value: string) {
+    state.activeTabName = value
   },
-  [MutationsEnum.AddToken](state: ObjectType, token: string) {
-    state.token = token
+  [MutationsEnum.AddToken](state: ObjectType, value: string) {
+    state.token = value
   },
   [MutationsEnum.RemoveToken](state: ObjectType) {
     state.token = ''
