@@ -5,11 +5,6 @@
     <van-icon class-prefix="iconfont" name="iconfont iconweixin" />
     <van-icon class-prefix="iconfont" name="iconfont icontuite" />
     <van-icon class-prefix="iconfont" name="iconfont iconweibo" />
-    <ul>
-      <li>12</li>
-      <li>12</li>
-      <li>12</li>
-    </ul>
     <p>{{ contryName }}</p>
     <p>{{ count }}</p>
     <van-button type="primary" @click="changeMutation" style="width: 100%"

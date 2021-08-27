@@ -10,6 +10,6 @@ const state: State = {
   count: 2022,
   name: '今年是2021年',
   activeTabName: 'home',
-  token: ''
+  token: sessionStorage.getItem('token') || ''
 }
 export default state

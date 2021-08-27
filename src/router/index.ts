@@ -1,5 +1,5 @@
 
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from 'vue-router'
 
 /**
  * 基础路由
@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     component: () => import('@/pages/home/index.vue'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
       title: '首页'
     }
   },
@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/house',
     component: () => import('@/pages/house/index.vue'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
       title: '社区'
     }
   },
@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/friend',
     component: () => import('@/pages/friend/index.vue'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
       title: '朋友'
     }
   },
@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/set',
     component: () => import('@/pages/set/index.vue'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
       title: '设置'
     }
   }
@@ -59,6 +59,16 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior: (to: RouteLocationNormalized, from: RouteLocationNormalized, savedPosition: any): any => {
+    if (savedPosition && to.meta.keepAlive) {
+      return savedPosition
+    }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 1 })
+      })
+    })
+  },
   routes
 })
 export default router

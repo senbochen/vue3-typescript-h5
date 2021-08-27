@@ -2,8 +2,10 @@
 import router from './router'
 import { RouteLocationNormalized } from 'vue-router'
 import { store } from '@/store/index'
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
 
+
+
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
   if (!store.state.token) {
     if (to.path !== '/login') {
       return next({
@@ -14,6 +16,10 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
   }
   next()
 })
+
+
+
+
 
 router.afterEach((to: RouteLocationNormalized) => {
   document.title = to.meta.title as string

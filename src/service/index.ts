@@ -8,7 +8,9 @@ import { MutationsEnum } from '@/store/mutation-types'
 import router from '@/router/index'
 
 axios.defaults.headers.get['x-source-city'] = 'SHENZHEN'
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers['token'] = localStorage.getItem('token') || ''
+axios.defaults.withCredentials = true
 const CancelToken = axios.CancelToken
 const source = CancelToken.source()
 
@@ -20,6 +22,7 @@ axios.interceptors.request.use(function (config: any) {
       message: '加载中...',
       forbidClick: true,
       loadingType: 'spinner',
+      duration: 1000
     })
 
   }

@@ -1,16 +1,17 @@
 <template>
   <div class="app-container">
     <!-- vue3 组件动态缓存的写法 -->
-
-    <router-view v-slot="{ Component }">
-      <transition name="slide-left">
-        <keep-alive :include="Array.from(cacheList)" :max="8">
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
-    </router-view>
-
+    <div class="router-view-wrap">
+      <router-view v-slot="{ Component }">
+        <transition name="slide-left">
+          <keep-alive :include="Array.from(cacheList)" :max="8">
+            <component :is="Component" />
+          </keep-alive>
+        </transition>
+      </router-view>
+    </div>
     <van-tabbar
+      class="tabbar-wrap"
       v-if="route.name !== 'Login'"
       v-model="active"
       active-color="#4994df"
@@ -18,9 +19,9 @@
       @change="onChange"
     >
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item name="house" icon="search">社区</van-tabbar-item>
-      <van-tabbar-item name="friend" icon="friends-o">朋友</van-tabbar-item>
-      <van-tabbar-item name="set" icon="setting-o">设置</van-tabbar-item>
+      <van-tabbar-item name="house" icon="search">二手房</van-tabbar-item>
+      <van-tabbar-item name="friend" icon="friends-o">新房</van-tabbar-item>
+      <van-tabbar-item name="set" icon="setting-o">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -65,4 +66,12 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
+.router-view-wrap {
+  max-height: calc(100vh - 1.5rem);
+  height: 100%;
+  overflow-y: scroll;
+}
+.tabbar-wrap {
+  height: 1.5rem;
+}
 </style>

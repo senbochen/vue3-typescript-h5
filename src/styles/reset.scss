@@ -1,80 +1,9 @@
 
  @import 'normalize.css/normalize.css';
-
-
- .common-container {
-   padding: 20px;
-
-    min-height: 100vh;
- }
+@import './common.scss';
+@import './router-animation.scss'
 
 
 
-
-
- //路由切换动画
- .slide-left-enter-active {
-    animation-name: slide-left-in;
-    animation-duration: .2s;
-    transition: all .2s linear;
-}
-.slide-left-leave-active {
-    animation-name: slide-left-out;
-    animation-duration: .2s;
-     transition: all .2s linear;
-}
-.slide-right-enter-active {
-    animation-name: slide-right-in;
-    animation-duration: .2s;
-     transition: all .2s linear;
-}
-.slide-right-leave-active {
-    animation-name: slide-right-out;
-    animation-duration: .2s;
-     transition: all .2s linear;
-}
-
-@keyframes slide-left-in {
-    0% {
-        transform: translate3d(100%, 0, 0);
-        opacity: 0;
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-        opacity:1;
-    }
-}
-
-@keyframes slide-left-out {
-    0% {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate3d(-100%, 0, 0);
-        opacity: 0;
-    }
-}
-
-@keyframes slide-right-in{
-    0% {
-        transform: translate3d(-100%, 0, 0);
-         opacity: 0;
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-         opacity: 1;
-    }
-}
-@keyframes slide-right-out  {
-    0% {
-        transform: translate3d(0, 0, 0);
-         opacity: 1;
-    }
-    100% {
-        transform: translate3d(100%, 0, 0);
-         opacity: 0;
-    }
-}
 
 

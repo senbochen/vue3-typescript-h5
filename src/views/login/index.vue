@@ -43,6 +43,7 @@ const Login = defineComponent({
     const store = useStore()
     const router = useRouter()
     const onSubmit = () => {
+      sessionStorage.setItem('token', state.username)
       store.commit(MutationsEnum.AddToken, state.username)
       router.push('/home')
     }

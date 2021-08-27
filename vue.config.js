@@ -34,6 +34,10 @@ module.exports = {
       '/web-online-room': {
         target: 'https://sz.kfang.com',
         changeOrigin: true
+      },
+      '/web-online-newhouse': {
+        target: 'https://sz.kfang.com',
+        changeOrigin: true
       }
     }
   }
