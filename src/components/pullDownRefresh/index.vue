@@ -1,6 +1,6 @@
 <template>
   <div class="pull-down-refresh-wrap" ref="pullRef">
-    <div class="status">
+    <div class="status" v-if="isShow">
       {{ tipText }}
     </div>
     <slot></slot>
@@ -8,11 +8,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
+import {
+  defineComponent,
+  onBeforeUpdate,
+  onMounted,
+  onUnmounted,
+  ref
+} from 'vue'
 import { scrollParent, getScrollTop } from './index'
-
 const ComponentName = 'PullDownRefresh'
-
 const PullDownRefresh = defineComponent({
   name: ComponentName,
   setup(props, { emit }) {
@@ -20,6 +24,8 @@ const PullDownRefresh = defineComponent({
     const startPosition = ref(0)
     const tipText = ref('下拉刷新')
     const timer = ref(0)
+    const isShow = ref(false)
+
     onMounted(() => {
       const pullDom = pullRef.value as any
       const distanceY = ref(0)
@@ -33,11 +39,10 @@ const PullDownRefresh = defineComponent({
 
       const refreshTouchMove = (event: any) => {
         const scrollTop = checkPosition()
-
         distanceY.value = event.touches[0].pageY - startPosition.value
         if (scrollTop <= 0 && distanceY.value >= 100) {
           tipText.value = distanceY.value > 200 ? '释放刷新' : '下拉刷新'
-          pullDom.style.transform = 'translateY(50px)'
+          pullDom.style.transform = 'translateY(0px)'
         }
       }
 
@@ -46,13 +51,13 @@ const PullDownRefresh = defineComponent({
         if (scrollTop <= 0 && distanceY.value >= 100) {
           tipText.value = '拼命加载中'
           clearTimeout(timer.value)
-          timer.value = setTimeout(() => {
-            emit('update')
-            pullDom.style.transform = 'translateY(0px)'
+          timer.value = setTimeout(async () => {
+            await emit('update')
+            pullDom.style.transform = 'translateY(-50px)'
             tipText.value = '加载完毕'
-          }, 500)
+          }, 900)
         } else {
-          pullDom.style.transform = 'translateY(0px)'
+          pullDom.style.transform = 'translateY(-50px)'
         }
       }
 
@@ -67,10 +72,13 @@ const PullDownRefresh = defineComponent({
         console.log('组件已经卸载了')
       })
     })
-
+    onBeforeUpdate(() => {
+      isShow.value = true
+    })
     return {
       pullRef,
-      tipText
+      tipText,
+      isShow
     }
   }
 })
@@ -85,7 +93,6 @@ export default PullDownRefresh
   box-sizing: border-box;
   overflow-y: scroll;
   transition: all 0.3s linear;
-
   transform: translateY(-50px);
 }
 
@@ -95,9 +102,9 @@ export default PullDownRefresh
   line-height: 50px;
   box-sizing: border-box;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   margin: 0;
   padding: 0;
-  color: rgb(218, 16, 184);
+  color: rgb(31, 31, 31);
 }
 </style>

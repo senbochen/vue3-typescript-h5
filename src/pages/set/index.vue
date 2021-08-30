@@ -34,7 +34,7 @@
 <script lang='ts'>
 import { defineComponent, onMounted, ref } from 'vue'
 import { useFormatTodayTime } from '@/hooks/index'
-import { getNewHouse, erGetBaseInfor } from '@/api/index'
+import { getNewHouse, erGetBaseInfor, newsList } from '@/api/index'
 import PullDownRefresh from '@/components/pullDownRefresh/index.vue'
 const Set = defineComponent({
   name: 'Set',
@@ -45,6 +45,18 @@ const Set = defineComponent({
     const one = ref(0)
     const update = () => {
       one.value === 1 ? getNewHouseInfor() : erGetBase()
+    }
+
+    const getJoke = async () => {
+      try {
+        const {
+          data: { data }
+        } = await newsList({ name: '广东省_深圳市', page: 1 })
+        // newHouseInfor.value = data
+        console.log('data=====', data)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     const erGetBase = async () => {
@@ -89,13 +101,15 @@ const Set = defineComponent({
 
     onMounted(() => {
       getNewHouseInfor()
+      getJoke()
     })
     return {
       newHouseInfor,
       useFormat,
       getNewHouseInfor,
       update,
-      erGetBase
+      erGetBase,
+      getJoke
     }
   }
 })

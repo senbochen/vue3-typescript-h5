@@ -1,7 +1,7 @@
 
 <template>
   <div class="common-container">
-    <PullUpRefresh>
+    <PullUpRefresh @update="updateData">
       <ul>
         <li v-for="item in newHouseInfor" :key="item.createTimeDesc">
           <span
@@ -28,22 +28,31 @@ const Friend = defineComponent({
     const store = useStore()
     const router = useRouter()
     const newHouseInfor = ref({})
-    const getNewHouseInfor = async () => {
+    const updateData = async () => {
+      console.log('上拉加载刷新')
+      const data = await getNewHouseInfor(40)
+      newHouseInfor.value = newHouseInfor.value.concat(data)
+      console.log(data)
+    }
+
+    const getNewHouseInfor = async (pageSize = 20) => {
       try {
         const { data: { result: { records: { items } } } } = await getNewHouse({
           bizType: 'NEWHOUSE',
-          pageSize: 20
+          pageSize
         })
 
-        newHouseInfor.value = items
+        return items
 
       } catch (error) {
         console.log(error)
       }
     }
 
-    onMounted(() => {
-      getNewHouseInfor()
+    onMounted(async () => {
+      const data = await getNewHouseInfor()
+
+      newHouseInfor.value = data
     })
 
 
@@ -53,7 +62,8 @@ const Friend = defineComponent({
     }
     return {
       newHouseInfor,
-      logout
+      logout,
+      updateData
     }
   }
 })

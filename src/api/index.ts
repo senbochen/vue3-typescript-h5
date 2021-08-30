@@ -2,6 +2,7 @@
 import request from 'axios'
 const base = '/web-online-room'
 const newHouse = '/web-online-newhouse'
+const api = '/api'
 export const getBaseInfor = (params: any) => request({
   params,
   url: base + '/openapi/room/filter/sale',
@@ -19,3 +20,15 @@ export const getNewHouse = (params: any) => request({
   method: 'GET',
 })
 
+
+export const zhiHu = (params: any) => request({
+  params,
+  url: api + '/Zhihu/zhihu_daily',
+  method: 'GET',
+})
+
+export const newsList = (params: any) => request({
+  params,
+  url: api + '/News/local_news',
+  method: 'GET',
+})

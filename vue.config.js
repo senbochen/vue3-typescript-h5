@@ -33,10 +33,15 @@ module.exports = {
     proxy: {
       '/web-online-room': {
         target: 'https://sz.kfang.com',
-        changeOrigin: true
+        changeOrigin: true,
+        ws: true
       },
       '/web-online-newhouse': {
         target: 'https://sz.kfang.com',
+        changeOrigin: true
+      },
+      '/api': {
+        target: 'https://api.isoyu.com',
         changeOrigin: true
       }
     }

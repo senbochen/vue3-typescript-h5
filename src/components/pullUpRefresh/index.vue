@@ -1,9 +1,7 @@
 <template>
   <div class="pull-down-refresh-wrap" ref="pullRef">
     <slot></slot>
-    <div class="status">
-      {{ tipText }}
-    </div>
+    <div class="status" v-show="isShow">{{ tipText }}......</div>
   </div>
 </template>
 
@@ -22,12 +20,11 @@ const PullUpRefresh = defineComponent({
     const containerHeight = ref(0)
     const tipText = ref('加载更多')
     const timer = ref(0)
-    const isShow = ref(true)
+    const isShow = ref(false)
     onMounted(() => {
       const pullDom = pullRef.value as any
       const distanceY = ref(0)
       const scrollParentDom = scrollParent(pullDom)
-      console.log('scrollParentDom', scrollParentDom)
       const checkPosition = () => {
         return getScrollTop(scrollParentDom)
       }
@@ -40,31 +37,26 @@ const PullUpRefresh = defineComponent({
       const refreshTouchMove = (event: any) => {
         const scrollTop = checkPosition()
         distanceY.value = event.touches[0].pageY - startPosition.value
-        if (scrollTop + containerHeight.value == scrollHeight.value) {
+        if (scrollHeight.value - scrollTop - containerHeight.value <= 70) {
           isShow.value = true
-          pullDom.style.transform = 'translateY(0px)'
         } else {
           isShow.value = false
-          pullDom.style.transform = 'translateY(50px)'
         }
       }
 
       const refreshTouchEnd = () => {
         const scrollTop = checkPosition()
         if (
-          scrollTop + containerHeight.value == scrollHeight.value &&
+          scrollHeight.value - scrollTop - containerHeight.value <= 70 &&
           distanceY.value <= -100
         ) {
           clearTimeout(timer.value)
-          timer.value = setTimeout(() => {
-            emit('update')
-
+          timer.value = setTimeout(async () => {
+            await emit('update')
             isShow.value = false
-            pullDom.style.transform = 'translateY(50px)'
-          }, 500)
+          }, 900)
         } else {
           isShow.value = false
-          pullDom.style.transform = 'translateY(50px)'
         }
       }
 
@@ -76,6 +68,7 @@ const PullUpRefresh = defineComponent({
         pullDom?.removeEventListener('touchmove', refreshTouchMove)
         pullDom?.removeEventListener('touchend', refreshTouchEnd)
         clearTimeout(timer.value)
+        console.log('组件已经卸载了')
       })
     })
 
@@ -100,15 +93,14 @@ export default PullUpRefresh
 
 .status {
   width: 100%;
-  height: 50px;
+  max-height: 50px;
   line-height: 50px;
   box-sizing: border-box;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   margin: 0;
   padding: 0;
-  color: rgb(218, 16, 184);
-  position: absolute;
-  bottom: 0;
+  color: rgb(31, 31, 31);
+  transition: all 0.3s linear;
 }
 </style>
