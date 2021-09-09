@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 /vue3-h5-template
-vue3-h5-template
 
 # local env files
 .env.local

@@ -1,77 +1,54 @@
 
 <template>
   <div class="common-container">
-    <PullUpRefresh @update="updateData">
-      <ul>
-        <li v-for="item in newHouseInfor" :key="item.createTimeDesc">
-          <span
-            >{{ item.cityDesc }} - {{ item.decorationDesc }} -
-            {{ item.newPropertyTypeDesc }}</span
-          >
-        </li>
-      </ul>
-    </PullUpRefresh>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-cell v-for="item in list" :key="item" :title="item" />
+    </van-list>
   </div>
 </template>
 
-<script>
-import { defineComponent, onMounted, ref } from 'vue'
-import { useStore } from '@/store/index'
-import { MutationsEnum } from '@/store/mutation-types'
-import { useRouter } from 'vue-router'
-import { getNewHouse } from '@/api/index'
-import PullUpRefresh from '@/components/pullUpRefresh/index.vue'
+<script lang='ts'>
+import { defineComponent, ref } from 'vue'
 const Friend = defineComponent({
   name: 'Friend',
-  components: { PullUpRefresh },
-  setup () {
-    const store = useStore()
-    const router = useRouter()
-    const newHouseInfor = ref({})
-    const updateData = async () => {
-      console.log('上拉加载刷新')
-      const data = await getNewHouseInfor(40)
-      newHouseInfor.value = newHouseInfor.value.concat(data)
-      console.log(data)
+  setup() {
+    const list: any = ref([])
+    const loading = ref(false)
+    const finished = ref(false)
+
+    const onLoad = () => {
+      // 异步更新数据
+      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      console.log('开始')
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          list.value.push(list.value.length + 1)
+        }
+
+        // 加载状态结束
+        loading.value = false
+        console.log('结束')
+        // 数据全部加载完成
+        if (list.value.length >= 40) {
+          finished.value = true
+        }
+      }, 1000)
     }
 
-    const getNewHouseInfor = async (pageSize = 20) => {
-      try {
-        const { data: { result: { records: { items } } } } = await getNewHouse({
-          bizType: 'NEWHOUSE',
-          pageSize
-        })
-
-        return items
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    onMounted(async () => {
-      const data = await getNewHouseInfor()
-
-      newHouseInfor.value = data
-    })
-
-
-    const logout = () => {
-      store.commit(MutationsEnum.RemoveToken)
-      router.push('/login')
-    }
     return {
-      newHouseInfor,
-      logout,
-      updateData
+      list,
+      onLoad,
+      loading,
+      finished
     }
   }
 })
 export default Friend
-
 </script>
-<style>
-span {
-  font-size: 12px;
-}
+<style scoped>
 </style>

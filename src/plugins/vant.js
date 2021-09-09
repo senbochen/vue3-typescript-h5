@@ -1,5 +1,5 @@
 import app from '../createApp'
-import { Button, Swipe, SwipeItem, Image as VanImage, Form, Field, CellGroup, Toast, Tabbar, TabbarItem, Skeleton, Icon, Tag } from 'vant'
+import { Button, Swipe, SwipeItem, Image as VanImage, Form, Field, CellGroup, Toast, Tabbar, TabbarItem, Skeleton, Icon, Tag, List, Cell, PullRefresh } from 'vant'
 
 
 app.use(Form)
@@ -15,4 +15,7 @@ app.use(Form)
   .use(Tabbar)
   .use(TabbarItem)
   .use(Tag)
+  .use(List)
+  .use(Cell)
+  .use(PullRefresh)
 

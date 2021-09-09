@@ -51,7 +51,7 @@ axios.interceptors.response.use(function (response) {
   if (status === 400) {
     source.cancel()
     store.commit(MutationsEnum.RemoveToken)
-    const path = router.currentRoute as any
+    const path = router.currentRoute as Record<string, any>
     path.path !== 'login' &&
       router.replace({
         path: 'login',

@@ -1,17 +1,51 @@
+const { name } = require('../../package.json')
 
-// 防抖
-export const debounce = (fn: (...args: any) => void, delay: number) => {
-  let timer: any = null
-  return (...args: any[]) => {
-    if (timer) {
-      clearTimeout(timer)
-    }
-    timer = setTimeout(() => {
-      fn(...args)
-      timer = null
-    }, delay)
-  }
+export const getGlobal = (): any => {
+  return typeof window !== 'undefined' ? window : global
 }
+
+const global = getGlobal()
+const storagePrefix = `kf-${name}-`
+
+// 向本地存数据
+export function setStorage(
+  key: string,
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  data: any,
+  type = 'sessionStorage',
+): void {
+  if (typeof data === 'object') {
+    data = JSON.stringify(data)
+  }
+  global[type].setItem(`${storagePrefix}${key}`, data)
+}
+
+// 取本地数据
+export function getStorage(
+  key: string,
+  type = 'sessionStorage',
+): string | null {
+  return global[type].getItem(`${storagePrefix}${key}`) || null
+}
+
+// 删除本地数据
+export function deleteStorage(key: string, type = 'sessionStorage'): void {
+  global[type].removeItem(`${storagePrefix}${key}`)
+}
+
+// 获取随机数
+export const getRandom = (length: number): string => {
+  let res = ''
+  const randomMap = '0123456789abcdef'
+  const randomMapLength = randomMap.length
+  for (let j = 0; j < length; j++) {
+    const randomNumber = Math.floor(Math.random() * (randomMapLength - 1)) + 1
+    res += randomMap[randomNumber - 1]
+  }
+  return res
+}
+
+
 
 // 获取系统信息
 export function getOsVersion() {
@@ -40,4 +74,12 @@ export function getOsVersion() {
     version = 'winphone ' + u.substr(u.indexOf('iemobile') + 9, u.indexOf(';', u.indexOf('iemobile')) - u.indexOf('iemobile') - 9)
   }
   return version
+}
+
+// 手机号码隐藏
+export const telephoneNumberHidden = (number: string | number): string => {
+  if (typeof number === 'number') {
+    number = number.toString()
+  }
+  return number.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
 }

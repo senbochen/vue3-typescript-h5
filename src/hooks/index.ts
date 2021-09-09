@@ -3,11 +3,6 @@ type Formatter = (timestamp: number | string, format: string) => string
 const formatter = (timestamp: number | string, format: string) => dayjs(timestamp).format(format)
 
 
-
-
-
-
-
 // 格式化日期
 const useFormatDate: Formatter = (timestamp, format = 'YYYY-MM-DD') => formatter(timestamp, format)
 

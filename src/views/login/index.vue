@@ -1,6 +1,6 @@
 
 <template>
-  <div class="login-wrap">
+  <div class="login-wrap" ref="contanierRef">
     <van-form @submit="onSubmit" style="align-self: center">
       <van-cell-group inset>
         <van-field
@@ -40,6 +40,7 @@ const Login = defineComponent({
       username: '',
       password: '',
     })
+
     const store = useStore()
     const router = useRouter()
     const onSubmit = () => {
@@ -50,7 +51,7 @@ const Login = defineComponent({
 
     return {
       state,
-      onSubmit,
+      onSubmit
     }
   }
 })

@@ -1,7 +1,7 @@
 
 import app from './createApp'
 //一个轻量、可拓展、针对手机网页的前端开发者调试面板。
-import VConsole from 'vconsole'
+// import VConsole from 'vconsole'
 
 //引入vue-router@4.0.0
 import router from '@/router/index'
@@ -26,7 +26,7 @@ import './plugins/vant.js'
 
 //开发环境下加载开发者调试面板。
 if (process.env.NODE_ENV === 'development') {
-  new VConsole()
+  // new VConsole()
 }
 
 //引入全局指令

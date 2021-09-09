@@ -1,62 +1,66 @@
 
 <template>
   <div class="common-container">
-    <PullDownRefresh @update="update">
-      <ul>
-        <li v-for="item in newHouseInfor" :key="item.createTimeDesc">
-          <div v-if="item.model" style="padding: 10px">
-            <van-image
-              width="2rem"
-              height="2rem"
-              fit="cover"
-              :src="item.model.pictureUrl + '-f300x225'"
-            />
-            <span>类型：{{ item.decorationDesc }}</span>
-            <span>状态：{{ item.saleStatusDesc }}</span>
-            <p>{{ item.model.garden.address }}</p>
-          </div>
-
-          <div v-else>
-            <van-image
-              width="6rem"
-              height="6rem"
-              fit="cover"
-              :src="item.pictureUrl + '-f300x225'"
-            />
-            <p>{{ item.title }}</p>
-          </div>
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <li v-for="item in newHouseInfor" :key="item.createTime">
+          <span v-if="item.title">{{ item.title }}</span>
+          <span v-else>{{ item.model.garden.address }}</span>
         </li>
-      </ul>
-    </PullDownRefresh>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, onMounted, ref } from 'vue'
-import { useFormatTodayTime } from '@/hooks/index'
-import { getNewHouse, erGetBaseInfor, newsList } from '@/api/index'
-import PullDownRefresh from '@/components/pullDownRefresh/index.vue'
+import { getNewHouse, erGetBaseInfor } from '@/api/index'
 const Set = defineComponent({
   name: 'Set',
-  components: { PullDownRefresh },
   setup() {
-    const useFormat = useFormatTodayTime(new Date().getTime())
-    const newHouseInfor = ref({})
+    const loading = ref(false)
+    const finished = ref(false)
+    const pageSize = ref(20)
+    const refreshing = ref(false)
+    const newHouseInfor = ref([])
     const one = ref(0)
-    const update = () => {
-      one.value === 1 ? getNewHouseInfor() : erGetBase()
+    const onLoad = () => {
+      update()
     }
 
-    const getJoke = async () => {
-      try {
-        const {
-          data: { data }
-        } = await newsList({ name: '广东省_深圳市', page: 1 })
-        // newHouseInfor.value = data
-        console.log('data=====', data)
-      } catch (error) {
-        console.log(error)
-      }
+    interface IUser {
+      name: string
+      age: number
+      height: number
+    }
+    type record = Record<string | number, string>
+
+    const chen: Partial<IUser> = {
+      name: '1221',
+      age: 21
+    }
+    const song: record = {
+      name: '12'
+    }
+
+    console.log(chen, song)
+
+    const onRefresh = () => {
+      // 清空列表数据
+
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      // loading.value = true
+      onLoad()
+    }
+
+    const update = () => {
+      one.value === 1 ? getNewHouseInfor() : erGetBase()
     }
 
     const erGetBase = async () => {
@@ -69,12 +73,15 @@ const Set = defineComponent({
           }
         } = await erGetBaseInfor({
           bizType: 'SALE',
-          pageSize: 30
+          pageSize: (pageSize.value += 10)
         })
-        newHouseInfor.value = items
+        newHouseInfor.value = newHouseInfor.value.concat(items)
+
         one.value = 1
       } catch (error) {
         console.log(error)
+      } finally {
+        refreshing.value = false
       }
     }
 
@@ -88,28 +95,29 @@ const Set = defineComponent({
           }
         } = await getNewHouse({
           bizType: 'NEWHOUSE',
-          pageSize: 15,
+          pageSize: (pageSize.value += 10),
           param: 'o2'
         })
 
-        newHouseInfor.value = items
+        newHouseInfor.value = newHouseInfor.value.concat(items)
         one.value = 0
       } catch (error) {
         console.log(error)
+      } finally {
+        refreshing.value = false
       }
     }
 
     onMounted(() => {
-      getNewHouseInfor()
-      getJoke()
+      update()
     })
     return {
       newHouseInfor,
-      useFormat,
-      getNewHouseInfor,
-      update,
-      erGetBase,
-      getJoke
+      onLoad,
+      loading,
+      finished,
+      onRefresh,
+      refreshing
     }
   }
 })
@@ -118,10 +126,13 @@ export default Set
 <style>
 p {
   font-size: 12px;
-  padding: 0;
+  padding: 10px;
   margin: 0;
 }
 span {
   font-size: 12px;
+}
+li {
+  list-style: none;
 }
 </style>
