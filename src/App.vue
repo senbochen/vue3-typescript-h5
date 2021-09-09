@@ -2,7 +2,7 @@
   <div class="app-container">
     <div
       class="router-view-wrap"
-      :style="{ height: loginCss ? 'calc(100vh - 1.5rem)' : '100vh' }"
+      :style="{ paddingBottom: loginCss ? '1.5rem' : '0' }"
     >
       <router-view v-slot="{ Component }">
         <transition name="slide-left">
@@ -57,9 +57,7 @@ export default defineComponent({
 .router-view-wrap {
   overflow: auto;
 }
-.tabbar-wrap {
-  height: 1.5rem;
-}
+
 .app-container {
   display: flex;
   flex-direction: column;

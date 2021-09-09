@@ -11,6 +11,12 @@
         <li v-for="item in newHouseInfor" :key="item.createTime">
           <span v-if="item.title">{{ item.title }}</span>
           <span v-else>{{ item.model.garden.address }}</span>
+          <van-image
+            width="10rem"
+            height="10rem"
+            fit="contain"
+            :src="item.model.pictureUrl + '-f300x225'"
+          />
         </li>
       </van-list>
     </van-pull-refresh>
@@ -19,37 +25,22 @@
 
 <script lang='ts'>
 import { defineComponent, onMounted, ref } from 'vue'
-import { getNewHouse, erGetBaseInfor } from '@/api/index'
+import { getNewHouse } from '@/api/index'
 const Set = defineComponent({
   name: 'Set',
   setup() {
     const loading = ref(false)
     const finished = ref(false)
-    const pageSize = ref(20)
+    const currentPage = ref(1)
     const refreshing = ref(false)
     const newHouseInfor = ref([])
-    const one = ref(0)
+
+    //下拉加载的数据更新函数
     const onLoad = () => {
       update()
     }
 
-    interface IUser {
-      name: string
-      age: number
-      height: number
-    }
-    type record = Record<string | number, string>
-
-    const chen: Partial<IUser> = {
-      name: '1221',
-      age: 21
-    }
-    const song: record = {
-      name: '12'
-    }
-
-    console.log(chen, song)
-
+    //上拉刷新的数据更新函数
     const onRefresh = () => {
       // 清空列表数据
 
@@ -60,29 +51,7 @@ const Set = defineComponent({
     }
 
     const update = () => {
-      one.value === 1 ? getNewHouseInfor() : erGetBase()
-    }
-
-    const erGetBase = async () => {
-      try {
-        const {
-          data: {
-            result: {
-              records: { items }
-            }
-          }
-        } = await erGetBaseInfor({
-          bizType: 'SALE',
-          pageSize: (pageSize.value += 10)
-        })
-        newHouseInfor.value = newHouseInfor.value.concat(items)
-
-        one.value = 1
-      } catch (error) {
-        console.log(error)
-      } finally {
-        refreshing.value = false
-      }
+      getNewHouseInfor()
     }
 
     const getNewHouseInfor = async () => {
@@ -95,12 +64,15 @@ const Set = defineComponent({
           }
         } = await getNewHouse({
           bizType: 'NEWHOUSE',
-          pageSize: (pageSize.value += 10),
-          param: 'o2'
+          pageSize: 25,
+          param: 'o2',
+          currentPage: currentPage.value++
         })
 
         newHouseInfor.value = newHouseInfor.value.concat(items)
-        one.value = 0
+        if (newHouseInfor.value.length >= 70) {
+          finished.value = true
+        }
       } catch (error) {
         console.log(error)
       } finally {

@@ -67,5 +67,6 @@ export default Login
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 </style>

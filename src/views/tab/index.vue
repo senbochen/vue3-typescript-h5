@@ -42,4 +42,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang='scss'>
+.tabbar-wrap {
+  height: 1.5rem;
+}
 </style>
